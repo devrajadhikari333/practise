@@ -1,6 +1,6 @@
 #!/bin/sh
 clear
-a=100
-b=200
+a=10
+b=20
 sum=$((a+b))
 echo " sum is $sum "
