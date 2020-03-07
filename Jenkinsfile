@@ -20,8 +20,8 @@ pipeline {
         }
         stage ('Deploy') {
             steps {
-                sshagent(['agent-practise-key']) {
-                sh "scp -i -o StrictHostKeyChecking=no target/my-app-1.0-SNAPSHOT.jar ec2-user@172.31.38.40:/home/ec2-user" 
+                sshagent(['Deployment-agent']) {
+                sh "scp -o StrictHostKeyChecking=no target/my-app-1.0-SNAPSHOT.jar ec2-user@172.31.38.40:/home/ec2-user" 
                 }
             }
         }
