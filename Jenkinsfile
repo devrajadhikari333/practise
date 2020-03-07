@@ -18,6 +18,12 @@ pipeline {
                 sh "mvn package -DskipTests=true"
             }
         }
+        stage ('Deploy') {
+            steps {
+                sshagent(['agent-practise-key']) {
+                sh "scp target/my-app-1.0-SNAPSHOT.jar ec2-user@172.31.38.40:/home/ec2-user" 
+            }
+        }
     }
     post {
         success {
