@@ -18,11 +18,14 @@ pipeline {
                 sh "mvn package -DskipTests=true"
             }
         }
-        stage ('Deploy') {
-            steps {
-                input message: 'Do you want me to Deploy?', ok: 'Approve'
-                sshagent(['Deployment-agent']) {
-                sh "scp -o StrictHostKeyChecking=no target/my-app-1.0-SNAPSHOT.jar ec2-user@172.31.38.40:/home/ec2-user" 
+        timeout(time: 10, unit: 'SECONDS') {
+            stage ('Deploy') {
+                steps {
+                    //sh "mail -s 'the job is waiting for approval' devrajadhikari333@gmail.com"
+                    input message: 'Do you want me to Deploy?', ok: 'Approve'
+                    sshagent(['Deployment-agent']) {
+                    sh "scp -o StrictHostKeyChecking=no target/my-app-1.0-SNAPSHOT.jar ec2-user@172.31.38.40:/home/ec2-user" 
+                    }
                 }
             }
         }
