@@ -6,6 +6,9 @@ pipeline {
         jdk 'Openjdk8'
         maven 'Maven363'
     }
+    options {
+        timeout(time: 10, unit: 'SECONDS')
+    }
     stages {
         stage ('Build') {
             steps {
@@ -17,9 +20,6 @@ pipeline {
             steps {
                 sh "mvn package -DskipTests=true"
             }
-        }
-        options {
-            timeout(time: 10, unit: 'SECONDS')
         }
         stage ('Deploy') {
             steps {
